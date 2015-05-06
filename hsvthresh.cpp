@@ -1,25 +1,28 @@
 #include <iostream>
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
+#include <stdlib.h>
 
 using namespace cv;
 using namespace std;
 
  int main( int argc, char** argv )
  {
-  int type = 2;//img
+  int type = 1;//img
   Mat imgOriginal;
   
   VideoCapture cap(argv[1]); // try capture the video
-  if(argc < 2)
+  if(argc >= 2)
   { 
-      type = 1; //video
+      type = 2; //video
 
   }
   else
   {
     imgOriginal = imread(argv[1], CV_LOAD_IMAGE_UNCHANGED);
   }
+  
+  int run = atoi(argv[2]);
 
     namedWindow("Control", CV_WINDOW_AUTOSIZE); //create a window called "Control"
 
@@ -42,10 +45,13 @@ using namespace std;
   cvCreateTrackbar("LowV", "Control", &iLowV, 255); //Value (0 - 255)
  cvCreateTrackbar("HighV", "Control", &iHighV, 255);
 
+    int i =1;
     while (true)
     {
-
-      if (type == 1)
+      
+      int k = waitKey(30);
+      cout<<k<<endl;
+      if (type == 2 && i == 1)
       {
         
         bool bSuccess = cap.read(imgOriginal); // read a new frame from video
@@ -55,6 +61,7 @@ using namespace std;
              cout << "Cannot read a frame from video stream" << endl;
              break;
         }
+        i = 2;
       }
 
     Mat imgHSV;
@@ -76,10 +83,18 @@ using namespace std;
    imshow("Thresholded Image", imgThresholded); //show the thresholded image
   imshow("Original", imgOriginal); //show the original image
 
-        if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+  /*if (run == 1)
+  {
+    waitKey(0);
+  }*/
+        if ( k == 1048603) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
        {
             cout << "esc key is pressed by user" << endl;
             break; 
+       }
+        else if ( k == 1048686)
+       {
+            i=1;
        }
     }
 
