@@ -31,7 +31,7 @@ using namespace std;
   int iLowV,iHighV;
 
   fstream cfile;
-  cfile.open(".hsvConfig", std::fstream::in | std::fstream::out | std::fstream::app);
+  cfile.open("/home/nithin/.hsvConfig", std::fstream::in | std::fstream::out | std::fstream::app);
   if( cfile.peek() == std::ifstream::traits_type::eof() )
   {
    	cout<<"empty file"<<endl;
@@ -74,8 +74,12 @@ using namespace std;
 
          if (!bSuccess) //if not success, break loop
         {
-             cout << "Cannot read a frame from video stream" << endl;
-             break;
+            cout << "Cannot read a frame from video stream" << endl;
+            cfile.open("/home/nithin/.hsvConfig", std::fstream::out | std::fstream::trunc);
+            cfile<<iLowH<<" "<<iHighH<<" "<<iLowS<<" "<<iHighS<<" "<<iLowV<<" "<<iHighV;
+            cout<<"saved config . . ."<<endl;
+            cfile.close();
+            break;
         }
         i = 2;
       }
@@ -107,7 +111,7 @@ using namespace std;
        {
         cout << "esc key is pressed by user" << endl;
     
-        cfile.open(".hsvConfig", std::fstream::out | std::fstream::trunc);
+        cfile.open("/home/nithin/.hsvConfig", std::fstream::out | std::fstream::trunc);
    	    cfile<<iLowH<<" "<<iHighH<<" "<<iLowS<<" "<<iHighS<<" "<<iLowV<<" "<<iHighV;
         cout<<"saved config . . ."<<endl;
   	    cfile.close();
