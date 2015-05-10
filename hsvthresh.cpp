@@ -87,12 +87,12 @@ using namespace std;
   {
     waitKey(0);
   }*/
-        if ( k == 1048603) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+        if ( k == 27|| k == 1048603 ) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
        {
             cout << "esc key is pressed by user" << endl;
             break; 
        }
-        else if ( k == 1048686)
+        else if ( k == 110 || k == 1048686 )
        {
             i=1;
        }
