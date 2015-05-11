@@ -1,0 +1,7 @@
+build/*
+*.png
+*.avi
+
+!*.cpp
+!*.hpp
+
